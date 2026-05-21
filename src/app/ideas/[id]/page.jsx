@@ -31,6 +31,7 @@ const IdeyaDetailsPage = () => {
     const handlePostComment = async (e) => {
         e.preventDefault();
         if (!newComment.trim()) return;
+        toast.success("succesfull post comment!");
 
         const sampleComment = {
             ideaId: id,
