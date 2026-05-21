@@ -10,7 +10,7 @@ const IdyaCard = ({ idya }) => {
   return (
     <Card className="border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 h-full flex flex-col justify-between bg-white rounded-2xl p-2 group overflow-hidden">
 
-      <div className="relative w-full h-44 rounded-xl overflow-hidden bg-gray-100">
+      <div className="relative w-full h-99 rounded-xl overflow-hidden bg-gray-100">
         <Image
           src={imageUrl || "https://unsplash.com"}
           alt={ideaTitle}
@@ -64,7 +64,7 @@ const IdyaCard = ({ idya }) => {
             color="primary"
             variant="flat"
             size="sm"
-            className="font-bold rounded-xl text-xs px-4 gap-1.5 w-full sm:w-auto"
+            className="font-bold rounded-md text-xs px-4 gap-1.5 w-full sm:w-auto bg-blue-600 text-white skew-3"
           >
             View Details <FaArrowRight className="text-[10px]" />
           </Button>
