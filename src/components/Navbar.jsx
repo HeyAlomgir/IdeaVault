@@ -3,8 +3,9 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Button } from "@heroui/react";
+import { Avatar, Button } from "@heroui/react";
 import { FaBars, FaLightbulb, FaSun, FaTimes } from "react-icons/fa";
+import { authClient } from "@/lib/auth-client";
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,6 +18,18 @@ const Navbar = () => {
         { label: "My Ideas", path: "/my-ideas" },
         { label: "My Interactions", path: "/my-interactions" },
     ];
+
+     const {
+        data: session,
+    } = authClient.useSession()
+    const user = session?.user;
+    // console.log(user);
+
+    const handleSignOut = async()=>{
+        await authClient.signOut({
+
+        })
+    }
 
     return (
         <nav className="w-full bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md text-foreground border-b border-default-200/50 sticky top-0 z-50">
@@ -68,13 +81,35 @@ const Navbar = () => {
                         <FaSun size={20} />
                     </Button>
 
-                    <Button as={Link} href="/login" color="primary" variant="flat" size="sm" className="font-semibold">
-                        Login
-                    </Button>
 
-                    <Button as={Link} href="/register" color="primary" variant="solid" size="sm" className="font-semibold hidden sm:flex">
-                        Register
-                    </Button>
+                        <ul className='flex gap-5 items-center'>
+                <li><Link href={"/profile"}>Profile</Link></li>
+
+                <div>
+                    {
+                        user ? <>
+                            <div className='flex items-center gap-3'>
+                                <li>
+                                <Avatar>
+                                    <Avatar.Image alt={user?.name} src={user?.image} />
+                                    <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>
+                                </Avatar>
+                            </li>
+                            <li>
+                                <Button onClick={handleSignOut} className={"rounded-none"} variant='danger'>
+                                    Logout
+                                </Button>
+                            </li>
+                            </div>
+                        </>
+                            : <div className='flex items-center gap-3'>
+                                <li><Link href={"/login"}>Login</Link></li>
+                                <li><Link href={"/signup"}>Sign UP</Link></li>
+                            </div>
+                    }
+                </div>
+
+            </ul>
                 </div>
             </div>
 
@@ -101,11 +136,41 @@ const Navbar = () => {
                         })}
                     </ul>
 
-                    <div className="pt-2 border-t border-default-100 sm:hidden">
-                        <Button as={Link} href="/register" color="primary" variant="bordered" className="w-full" onClick={() => setIsMenuOpen(false)}>
+                    {/* <div className="pt-2 border-t border-default-100 sm:hidden">
+                     <Link href="/signup">
+                           <Button color="primary" variant="bordered" className="w-full" onClick={() => setIsMenuOpen(false)}>
                             Register
                         </Button>
-                    </div>
+                     </Link>
+                    </div> */}
+                    <ul className='flex gap-5 items-center'>
+                <li><Link href={"/profile"}>Profile</Link></li>
+
+                <div>
+                    {
+                        user ? <>
+                            <div className='flex items-center gap-3'>
+                                <li>
+                                <Avatar>
+                                    <Avatar.Image alt={user?.name} src={user?.image} />
+                                    <Avatar.Fallback>{user?.name.charAt(0)}</Avatar.Fallback>
+                                </Avatar>
+                            </li>
+                            <li>
+                                <Button onClick={handleSignOut} className={"rounded-none"} variant='danger'>
+                                    Logout
+                                </Button>
+                            </li>
+                            </div>
+                        </>
+                            : <div className='flex items-center gap-3'>
+                                <li><Link href={"/login"}>Login</Link></li>
+                                <li><Link href={"/signup"}>Sign UP</Link></li>
+                            </div>
+                    }
+                </div>
+
+            </ul>
                 </div>
             )}
         </nav>
