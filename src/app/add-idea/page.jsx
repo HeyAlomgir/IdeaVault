@@ -51,7 +51,7 @@ const AddIdeaPage = () => {
                             <FieldError />
                         </TextField>
 
-                        {/*  Category /}
+                     
                         <div>
                             <Select
                                 name="category"
