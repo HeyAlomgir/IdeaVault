@@ -56,7 +56,7 @@ const Navbar = () => {
                 </div>
 
                 {/* Desktop View Menu */}
-                <ul className="hidden md:flex gap-4 items-center md:ml-1">
+                <ul className="hidden md:flex md:gap-2 lg:gap-5 items-center md:ml-1">
                     {menuItems.map((item, index) => {
                         const isActive = pathname === item.path;
                         return (
@@ -136,13 +136,6 @@ const Navbar = () => {
                         })}
                     </ul>
 
-                    {/* <div className="pt-2 border-t border-default-100 sm:hidden">
-                     <Link href="/signup">
-                           <Button color="primary" variant="bordered" className="w-full" onClick={() => setIsMenuOpen(false)}>
-                            Register
-                        </Button>
-                     </Link>
-                    </div> */}
                     <ul className='flex gap-5 items-center'>
                 <li><Link href={"/profile"}>Profile</Link></li>
 
