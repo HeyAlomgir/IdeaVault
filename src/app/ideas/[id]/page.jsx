@@ -1,13 +1,58 @@
+"use client"
 import Image from 'next/image';
 import { Button, Avatar } from "@heroui/react";
 import { FaTrash, FaEdit } from "react-icons/fa";
+import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
-const IdeyaDetailsPage = async ({ params }) => {
-    const { id } = await params;
+const IdeyaDetailsPage =() => {
+    const {id} = useParams();
+    const [idyad,setIdyad]=useState(null);
+    const [comments,setComments]=useState([]);
+    const [newComment,setNewComment]=useState("");
+// step 1
+        useEffect(() => {
+        if (!id) return;
 
-    const res = await fetch(`http://localhost:5000/idya/${id}`, { cache: "no-store" });
-    const idya = await res.json();
-    const { ideaTitle, category, shortDescription, targetAudience, estimatedBudget, tags, imageUrl, problemStatement, proposedSolution } = idya;
+        fetch(`http://localhost:5000/idya/${id}`)
+            .then(res => res.json())
+            .then(data => setIdyad(data));
+
+        fetch(`http://localhost:5000/comments/${id}`)
+            .then(res => res.json())
+            .then(data => setComments(data));
+    }, [id]);
+
+    // step 2
+
+    const handlePostComment = async (e) => {
+        e.preventDefault();
+        if (!newComment.trim()) return;
+
+        const sampleComment = {
+            ideaId: id,
+            userName: "Ahsan Habib",
+            commentText: newComment,
+            timestamp: new Date().toLocaleTimeString()
+        }; 
+
+        const res = await fetch("http://localhost:5000/comments", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(sampleComment)
+        });
+        const data = await res.json();
+        
+        if (data.insertedId) {
+            setComments([...comments, sampleComment]); 
+            setNewComment(""); 
+        }
+    };
+
+    if (!idyad) {
+        return <p className="text-center py-20 font-bold text-blue-600 animate-pulse">Loading vault details...</p>;
+    }
+    const { ideaTitle, category, shortDescription, targetAudience, estimatedBudget, imageUrl, problemStatement, proposedSolution } = idyad;
 
     return (
         <div className='max-w-6xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-10 bg-white text-slate-800 min-h-screen'>
@@ -29,39 +74,46 @@ const IdeyaDetailsPage = async ({ params }) => {
                 </div>
             </div>
 
+                       {/* right side */}
             <div className="md:col-span-1 bg-gray-50 p-5 rounded-2xl border border-gray-100 h-fit space-y-5">
                 <h3 className="font-black text-slate-900 text-base">Public Discussions</h3>
-
-
-                <form className="space-y-2.5">
-                    <textarea
-                        placeholder="Write your feedback..."
-                        rows={3}
-                        required
-                        className="w-full bg-white text-sm font-medium text-slate-800 p-3 rounded-xl border border-gray-200 focus:outline-none focus:border-blue-500 transition-colors shadow-sm placeholder:text-gray-400"
+                
+                {/* কমেন্ট লেখার ফর্ম */}
+                <form onSubmit={handlePostComment} className="space-y-2.5">
+                    <textarea 
+                        placeholder="Write your feedback..." 
+                        rows={3} 
+                        required 
+                        value={newComment}
+                        onChange={(e) => setNewComment(e.target.value)} 
+                        className="w-full bg-white text-sm font-medium p-3 rounded-xl border border-gray-200 focus:outline-none focus:border-blue-500"
                     />
-                    <Button color="primary" className="w-full font-bold rounded-xl bg-blue-600 text-white text-xs h-10 shadow-sm shadow-blue-500/10">
+                    <Button type="submit" color="primary" className="w-full font-bold rounded-xl bg-blue-600 text-white text-xs h-10">
                         Post Comment
                     </Button>
                 </form>
 
-
-                <div className="space-y-3 max-h-[300px] overflow-y-auto">
-                    <div className="bg-white p-3 rounded-xl border border-gray-100 shadow-sm space-y-1.5">
-                        <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2">
-                                <Avatar src="https://pravatar.cc" size="sm" className="w-6 h-6" />
-                                <h4 className="text-xs font-bold text-slate-800 leading-none">Ahsan Habib</h4>
+                {/* databse theke asa commet loop  */}
+                <div className="space-y-3 max-h-[300px] overflow-y-auto pr-1">
+                    {comments && comments.length === 0 ? (
+                        <p className="text-center text-xs text-gray-400 font-semibold py-4">No comments yet.</p>
+                    ) : (
+                        comments && comments.map((comment, index) => (
+                            <div key={index} className="bg-white p-3 rounded-xl border border-gray-100 shadow-sm space-y-1">
+                                <div className="flex items-center gap-2">
+                                    <Avatar src="https://pravatar.cc" size="sm" className="w-6 h-6" />
+                                    <div>
+                                        <h4 className="text-xs font-bold text-slate-800 leading-none">{comment.userName}</h4>
+                                        <span className="text-[8px] text-gray-400 block mt-0.5">{comment.timestamp}</span>
+                                    </div>
+                                </div>
+                                <p className="text-xs text-gray-600 pl-0.5 font-medium pt-1">{comment.commentText}</p>
                             </div>
-                            <div className="flex items-center gap-1 text-gray-400">
-                                <button type="button" className="hover:text-blue-600 p-0.5"><FaEdit size={11} /></button>
-                                <button type="button" className="hover:text-red-500 p-0.5"><FaTrash size={11} /></button>
-                            </div>
-                        </div>
-                        <p className="text-xs text-gray-600 pl-0.5 font-medium">This is an amazing startup idea! The market needs this.</p>
-                    </div>
+                        ))
+                    )}
                 </div>
             </div>
+
 
         </div>
     );
