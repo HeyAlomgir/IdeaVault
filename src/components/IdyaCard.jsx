@@ -9,10 +9,10 @@ const IdyaCard = ({ idya }) => {
 
   return (
     <Card className="border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 h-full flex flex-col justify-between bg-white rounded-2xl p-2 group overflow-hidden">
-      
+
       <div className="relative w-full h-44 rounded-xl overflow-hidden bg-gray-100">
         <Image
-          src={imageUrl || "https://unsplash.com"} 
+          src={imageUrl || "https://unsplash.com"}
           alt={ideaTitle}
           fill
           className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -33,7 +33,7 @@ const IdyaCard = ({ idya }) => {
 
       <div className="py-1 px-3 text-gray-500 text-xs md:text-sm font-medium leading-relaxed flex-grow">
         <p className="line-clamp-2 mb-3 text-gray-500">{shortDescription}</p>
-        
+
         {tags && (
           <div className="flex flex-wrap gap-1.5 mb-3">
             {tags.split(",").map((tag, index) => (
@@ -43,7 +43,7 @@ const IdyaCard = ({ idya }) => {
             ))}
           </div>
         )}
-        
+
 
         <div className="grid grid-cols-2 gap-2 pt-3 border-t border-gray-100 text-[11px] text-gray-400">
           <div className="flex items-center gap-1">
@@ -59,16 +59,16 @@ const IdyaCard = ({ idya }) => {
 
 
       <div className="pt-2 pb-2 px-3 flex items-center justify-end border-t border-gray-50/50 mt-2">
-        <Button
-          as={Link}
-          href={`/ideas/${_id}`}
-          color="primary"
-          variant="flat"
-          size="sm"
-          className="font-bold rounded-xl text-xs px-4 gap-1.5 w-full sm:w-auto"
-        >
-          View Details <FaArrowRight className="text-[10px]" />
-        </Button>
+        <Link href={`/ideas/${_id}`}>
+          <Button
+            color="primary"
+            variant="flat"
+            size="sm"
+            className="font-bold rounded-xl text-xs px-4 gap-1.5 w-full sm:w-auto"
+          >
+            View Details <FaArrowRight className="text-[10px]" />
+          </Button>
+        </Link>
       </div>
 
     </Card>

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Button } from "@heroui/react"; // অকারণ Menu ইমপোর্ট বাদ দেওয়া হয়েছে
+import { Button } from "@heroui/react";
 import { FaBars, FaLightbulb, FaSun, FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
@@ -43,7 +43,7 @@ const Navbar = () => {
                 </div>
 
                 {/* Desktop View Menu */}
-                <ul className="hidden md:flex gap-6 items-center md:ml-1">
+                <ul className="hidden md:flex gap-4 items-center md:ml-1">
                     {menuItems.map((item, index) => {
                         const isActive = pathname === item.path;
                         return (
