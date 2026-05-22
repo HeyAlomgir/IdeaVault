@@ -5,8 +5,16 @@ import { FaTrash, FaEdit } from "react-icons/fa";
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { authClient } from '@/lib/auth-client';
 
 const IdeyaDetailsPage = () => {
+
+      const {
+        data: session,
+    } = authClient.useSession() ;
+    const user = session?.user;
+    // console.log(user);
+
     const { id } = useParams();
     const [idyad, setIdyad] = useState(null);
     const [comments, setComments] = useState([]);
@@ -35,7 +43,8 @@ const IdeyaDetailsPage = () => {
 
         const sampleComment = {
             ideaId: id,
-            userName: "Ahsan Habib",
+            userName: user?.name,
+            userEmail:user?.email,
             commentText: newComment,
             timestamp: new Date().toLocaleTimeString()
         };

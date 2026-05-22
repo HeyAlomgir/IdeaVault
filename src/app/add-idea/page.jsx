@@ -1,31 +1,53 @@
 "use client";
+import { authClient } from "@/lib/auth-client";
 import { Button, FieldError, Input, Label, ListBox, TextArea, TextField, Select, Card } from "@heroui/react";
+import toast from "react-hot-toast";
 import { FaRocket } from "react-icons/fa";
 
 
 const AddIdeaPage = () => {
 
-    const handleSubmit = async(e) => {
+    const {
+        data: session,
+    } = authClient.useSession();
+    const user = session?.user;
+    // console.log(user);
+
+    const handleSubmit = async (e) => {
+
         e.preventDefault();
-        const formData= new FormData(e.currentTarget);
-        const idyaVault = Object.fromEntries(formData.entries());
-        // console.log(idyaVault);
+        const formData = new FormData(e.currentTarget);
+        const idyaVault = {
+            ...Object.fromEntries(formData.entries()),
+            userId: user?.id,
+            userEmail: user?.email,
+            userName: user?.name
+        };
 
-        const res = await fetch(`http://localhost:5000/idya`,{
-            method:"POST",
-            headers:{
-                "content-type":'application/json'
-            },
-            body:JSON.stringify(idyaVault)
-        });
-        const idyas = await res.json();
-        console.log(idyas)
-            
+    //   console.log(idyaVault);
 
-             e.target.reset();
+        try {
+            const res = await fetch(`http://localhost:5000/idya`, {
+                method: "POST",
+                headers: {
+                    "content-type": 'application/json'
+                },
+                body: JSON.stringify(idyaVault)
+            });
+            const idyas = await res.json();
+            // console.log(idyas)
+            if (idyas.insertedId) {
+                e.target.reset();
+                toast.success("Startup idea added successfully!");
+            }
+        } catch (error) {
+            console.error("Submission error:", error);
+            toast.error("Something went wrong. Please try again.");
+        }
 
-     };
-
+        e.target.reset();
+        toast.success("Added successfully!")
+    };
     return (
         <div className="px-6 py-10 bg-white min-h-[60vh]">
             <h1 className="text-2xl font-black text-slate-900 mb-2">Submit Your Startup Idea</h1>
@@ -51,7 +73,7 @@ const AddIdeaPage = () => {
                             <FieldError />
                         </TextField>
 
-                     
+
                         <div>
                             <Select
                                 name="category"
@@ -164,7 +186,8 @@ const AddIdeaPage = () => {
                         type="submit"
                         className="rounded-2xl w-full bg-blue-600 hover:bg-blue-700 text-white font-bold h-12 transition-colors text-sm"
                     >
-                        <FaRocket/> Pitch Startup Idea to Vault
+                        <FaRocket /> Pitch Startup Idea to Vault
+
                     </Button>
                 </form>
             </Card>

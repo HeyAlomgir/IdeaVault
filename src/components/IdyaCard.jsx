@@ -1,10 +1,12 @@
 "use client";
 import Link from "next/link";
-import Image from "next/image"; // Next.js Image ইমপোর্ট
+import Image from "next/image"; 
 import { Card, CardHeader, Button, Chip } from "@heroui/react";
 import { FaArrowRight, FaUserAlt, FaDollarSign } from "react-icons/fa";
+import { authClient } from "@/lib/auth-client";
 
 const IdyaCard = ({ idya }) => {
+
   const { _id, ideaTitle, category, shortDescription, targetAudience, estimatedBudget, tags, imageUrl } = idya;
 
   return (
