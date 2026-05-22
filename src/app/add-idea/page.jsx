@@ -1,11 +1,13 @@
 "use client";
 import { authClient } from "@/lib/auth-client";
 import { Button, FieldError, Input, Label, ListBox, TextArea, TextField, Select, Card } from "@heroui/react";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { FaRocket } from "react-icons/fa";
 
 
 const AddIdeaPage = () => {
+    
 
     const {
         data: session,
@@ -13,7 +15,12 @@ const AddIdeaPage = () => {
     const user = session?.user;
     // console.log(user);
 
+       useEffect(() => {
+        document.title = "Add Idea | IdeaVault"; 
+    }, []);
+
     const handleSubmit = async (e) => {
+          document.title = "add idya | IdeaVault";
 
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
@@ -24,7 +31,7 @@ const AddIdeaPage = () => {
             userName: user?.name
         };
 
-    //   console.log(idyaVault);
+      console.log(idyaVault);
 
         try {
             const res = await fetch(`http://localhost:5000/idya`, {
@@ -49,7 +56,8 @@ const AddIdeaPage = () => {
         toast.success("Added successfully!")
     };
     return (
-        <div className="px-6 py-10 bg-white min-h-[60vh]">
+        
+        <div className="container mx-auto px-6 py-10 bg-white min-h-[60vh]">
             <h1 className="text-2xl font-black text-slate-900 mb-2">Submit Your Startup Idea</h1>
             <p className="text-sm text-gray-500">Pitch your concept to the global community.</p>
 

@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Toaster } from "react-hot-toast";
+import NextThemeProvider from "@/components/NextThemeProvider";
 
 const josefin = Josefin_Sans({
   subsets: ["latin"],
@@ -18,13 +19,18 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      data-theme="light"
+
+      suppressHydrationWarning
       className={`${josefin.className} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-white text-black">
-        <Navbar/>
-        {children}
+      <body className="min-h-full flex flex-col bg-background text-foreground">
+        <NextThemeProvider>
+          <Navbar/>
+        <main>
+          {children}
+        </main>
         <Footer/>
+        </NextThemeProvider>
         <Toaster/>
         </body>
     </html>

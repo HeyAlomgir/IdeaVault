@@ -77,20 +77,6 @@ const MyInteractionsPage = () => {
                                     &ldquo;{item.commentText}&rdquo;
                                 </p>
                             </div>
-
-                            <div className="pt-2 border-t border-gray-50/50 flex justify-end">
-                                <Button
-                                    as={"a"}
-                                    href={`/ideas/${item.ideaId}`}
-                                    color="primary"
-                                    variant="flat"
-                                    size="sm"
-                                    className="font-bold rounded-xl text-[11px] px-4 gap-1 cursor-pointer"
-                                >
-                                    View Pitch <FaArrowRight size={8} />
-                                </Button>
-                            </div>
-
                         </div>
                     ))}
                 </div>
