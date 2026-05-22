@@ -25,11 +25,11 @@ const IdeyaDetailsPage = () => {
     useEffect(() => {
         if (!id) return;
 
-        fetch(`http://localhost:5000/idya/${id}`)
+        fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/idya/${id}`)
             .then(res => res.json())
             .then(data => setIdyad(data));
 
-        fetch(`http://localhost:5000/comments/${id}`)
+        fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/comments/${id}`)
             .then(res => res.json())
             .then(data => setComments(data));
     }, [id]);
@@ -49,7 +49,7 @@ const IdeyaDetailsPage = () => {
             timestamp: new Date().toLocaleTimeString()
         };
 
-        const res = await fetch("http://localhost:5000/comments", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/comments`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(sampleComment)
@@ -75,7 +75,7 @@ const IdeyaDetailsPage = () => {
         // if (!confirmDelete) return;
 
         try {
-            const res = await fetch(`http://localhost:5000/comments/${commentId}`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/comments/${commentId}`, {
                 method: "DELETE"
             });
             const data = await res.json();
@@ -95,7 +95,7 @@ const IdeyaDetailsPage = () => {
         if (!editText.trim()) return;
 
         try {
-            const res = await fetch(`http://localhost:5000/comments/${commentId}`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/comments/${commentId}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ commentText: editText })

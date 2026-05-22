@@ -16,7 +16,7 @@ const MyInteractionsPage = () => {
         if (!realEmail) return;
 
         setLoading(true);
-        fetch(`http://localhost:5000/my-comments?email=${realEmail}`)
+        fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/my-comments?email=${realEmail}`)
             .then((res) => res.json())
             .then((data) => {
                 if (data && Array.isArray(data)) {

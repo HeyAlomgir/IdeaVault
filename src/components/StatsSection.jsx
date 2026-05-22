@@ -8,7 +8,7 @@ const StatsSection = () => {
   ];
 
   return (
-    <section className="w-full py-12 bg-gray-50/50 rounded-3xl border border-gray-100 my-8">
+    <section className="container mx-auto py-12 bg-gray-50/50 rounded-3xl border border-gray-100 my-8">
       <div className="container mx-auto px-6 text-center">
         <h3 className="text-xs font-bold text-blue-600 uppercase tracking-widest mb-2">Our Impact</h3>
         <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-10 tracking-tight">IdeaVault by the Numbers</h2>

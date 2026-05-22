@@ -55,7 +55,7 @@ const Login = () => {
 
 
                     <TextField
-                        isRequired
+                        
                         name="email"
                         type="email"
                         validate={(value) => {
@@ -71,7 +71,7 @@ const Login = () => {
                     </TextField>
 
                     <TextField
-                        isRequired
+                        
                         minLength={8}
                         name="password"
                         type="password"

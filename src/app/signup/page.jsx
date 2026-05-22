@@ -8,6 +8,7 @@ import { FaGoogle } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 
 
+
 const SignUP = () => {
 
     const onSubmit = async (e) => {
@@ -56,7 +57,7 @@ const SignUP = () => {
 
                 >
                     <TextField
-                        isRequired
+                        
                         name="name"
                         type="text"
 
@@ -67,7 +68,7 @@ const SignUP = () => {
                     </TextField>
 
                     <TextField
-                        isRequired
+                        
                         name="image"
                         type="url"
                     >
@@ -78,7 +79,7 @@ const SignUP = () => {
 
 
                     <TextField
-                        isRequired
+                        
                         name="email"
                         type="email"
                         validate={(value) => {
@@ -94,7 +95,7 @@ const SignUP = () => {
                     </TextField>
 
                     <TextField
-                        isRequired
+                        
                         minLength={8}
                         name="password"
                         type="password"

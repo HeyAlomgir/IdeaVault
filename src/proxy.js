@@ -11,6 +11,7 @@ export async function proxy(request) {
     })
 
     if(!session){
+        const currentUrl = request.nextUrl.pathname; 
 
         return NextResponse.redirect(new URL('/signup', request.url))
     }
@@ -21,5 +22,8 @@ export async function proxy(request) {
  
  
 export const config = {
-  matcher: ['/my-ideas','/add-idea','/ideas/:path'],
+  matcher: ['/my-ideas',
+    '/add-idea',
+    '/my-interactions',
+    '/profile','/ideas/:path'],
 }

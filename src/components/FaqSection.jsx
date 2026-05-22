@@ -8,7 +8,7 @@ const FaqSection = () => {
   ];
 
   return (
-    <section className="w-full py-12 bg-white my-6">
+    <section className="container mx-auto rounded-2xl shadow-2xl py-12 bg-white my-6">
       <div className="max-w-4xl mx-auto px-6">
         <div className="text-center mb-10">
           <h3 className="text-xs font-bold text-blue-600 uppercase tracking-widest mb-2">Got Questions?</h3>

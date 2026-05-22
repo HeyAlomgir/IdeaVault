@@ -14,7 +14,7 @@ const IdeaPage = () => {
 
     useEffect(() => {
         document.title = "Explore Ideas | IdeaVault";
-        fetch("http://localhost:5000/idya")
+        fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/idya`)
             .then((res) => res.json())
             .then((data) => {
                 setIdyas(data);

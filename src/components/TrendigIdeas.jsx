@@ -7,7 +7,7 @@ import IdyaCard from "./IdyaCard";
 
 
 const TrendigIdeas = async () => {
-    const res = await fetch(`http://localhost:5000/trending-ideas`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/trending-ideas`)
     const trendigIdyas = await res.json();
     return (
         <div className="mt-10 container mx-auto">

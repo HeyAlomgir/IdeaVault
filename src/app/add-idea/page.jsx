@@ -34,7 +34,7 @@ const AddIdeaPage = () => {
       console.log(idyaVault);
 
         try {
-            const res = await fetch(`http://localhost:5000/idya`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/idya`, {
                 method: "POST",
                 headers: {
                     "content-type": 'application/json'
@@ -67,7 +67,7 @@ const AddIdeaPage = () => {
 
                         {/* Idea Title*/}
                         <div className="md:col-span-2">
-                            <TextField name="ideaTitle" isRequired>
+                            <TextField name="ideaTitle" >
                                 <Label>Idea Title</Label>
                                 <Input placeholder="e.g., Smart Crop Monitor " className="rounded-2xl" />
                                 <FieldError />
@@ -75,7 +75,7 @@ const AddIdeaPage = () => {
                         </div>
 
                         {/* Target Audience */}
-                        <TextField name="targetAudience" isRequired>
+                        <TextField name="targetAudience" >
                             <Label>Target Audience</Label>
                             <Input placeholder="e.g., Developers, Local Farmers" className="rounded-2xl" />
                             <FieldError />
@@ -85,7 +85,7 @@ const AddIdeaPage = () => {
                         <div>
                             <Select
                                 name="category"
-                                isRequired
+                                
                                 className="w-full"
                                 placeholder="Select category"
                             >
@@ -108,7 +108,7 @@ const AddIdeaPage = () => {
                         </div>
 
                         {/*  Estimated Budget (Optional) */}
-                        <TextField name="estimatedBudget" type="text">
+                        <TextField name="imatedBudgetest" type="text">
                             <Label>Estimated Budget (Optional)</Label>
                             <Input
                                 placeholder="e.g., $5,000"
@@ -129,7 +129,7 @@ const AddIdeaPage = () => {
 
                         {/* Image URL */}
                         <div className="md:col-span-2">
-                            <TextField name="imageUrl" isRequired>
+                            <TextField name="imageUrl" >
                                 <Label>Concept Image URL</Label>
                                 <Input
                                     type="url"
@@ -142,7 +142,7 @@ const AddIdeaPage = () => {
 
                         {/* Short Description */}
                         <div className="md:col-span-2">
-                            <TextField name="shortDescription" isRequired>
+                            <TextField name="shortDescription" >
                                 <Label>Short Description</Label>
                                 <TextArea
                                     placeholder="Summarize your startup concept in 2-3 sentences..."
@@ -154,7 +154,7 @@ const AddIdeaPage = () => {
 
                         {/* Problem Statement */}
                         <div className="md:col-span-2">
-                            <TextField name="problemStatement" isRequired>
+                            <TextField name="problemStatement" >
                                 <Label>Problem Statement</Label>
                                 <TextArea
                                     placeholder="What painful problem are you trying to solve?"
@@ -166,7 +166,7 @@ const AddIdeaPage = () => {
 
                         {/* Proposed Solution */}
                         <div className="md:col-span-2">
-                            <TextField name="proposedSolution" isRequired>
+                            <TextField name="proposedSolution" >
                                 <Label>Proposed Solution</Label>
                                 <TextArea
                                     placeholder="How exactly does your platform fix this problem uniquely?"
@@ -178,7 +178,7 @@ const AddIdeaPage = () => {
 
                         {/* Detailed Description */}
                         <div className="md:col-span-2 mb-10">
-                            <TextField name="detailedDescription" isRequired>
+                            <TextField name="detailedDescription" >
                                 <Label>Detailed Description</Label>
                                 <TextArea
                                     placeholder="Elaborate on the core features, workflow and business model..."
